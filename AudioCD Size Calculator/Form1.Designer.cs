@@ -28,8 +28,6 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("#");
-			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Length");
 			this.deviceSelectionBox = new System.Windows.Forms.ComboBox();
 			this.deviceRefreshButton = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
@@ -38,24 +36,29 @@
 			this.totalLenghtBox = new System.Windows.Forms.TextBox();
 			this.addButton = new System.Windows.Forms.Button();
 			this.resetButton = new System.Windows.Forms.Button();
+			this.trackNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.length = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.SuspendLayout();
 			// 
 			// deviceSelectionBox
 			// 
+			this.deviceSelectionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.deviceSelectionBox.FormattingEnabled = true;
 			this.deviceSelectionBox.Location = new System.Drawing.Point(13, 13);
 			this.deviceSelectionBox.Name = "deviceSelectionBox";
-			this.deviceSelectionBox.Size = new System.Drawing.Size(289, 21);
+			this.deviceSelectionBox.Size = new System.Drawing.Size(200, 21);
 			this.deviceSelectionBox.TabIndex = 0;
+			this.deviceSelectionBox.SelectedIndexChanged += new System.EventHandler(this.deviceSelectionBox_SelectedIndexChanged);
 			// 
 			// deviceRefreshButton
 			// 
-			this.deviceRefreshButton.Location = new System.Drawing.Point(309, 13);
+			this.deviceRefreshButton.Location = new System.Drawing.Point(219, 13);
 			this.deviceRefreshButton.Name = "deviceRefreshButton";
 			this.deviceRefreshButton.Size = new System.Drawing.Size(21, 21);
 			this.deviceRefreshButton.TabIndex = 1;
 			this.deviceRefreshButton.Text = "↻";
 			this.deviceRefreshButton.UseVisualStyleBackColor = true;
+			this.deviceRefreshButton.Click += new System.EventHandler(this.deviceRefreshButton_Click);
 			// 
 			// label1
 			// 
@@ -68,19 +71,20 @@
 			// 
 			// trackList
 			// 
-			this.trackList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
+			this.trackList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.trackNumber,
+            this.length});
 			this.trackList.Location = new System.Drawing.Point(13, 58);
 			this.trackList.Name = "trackList";
-			this.trackList.Size = new System.Drawing.Size(317, 203);
+			this.trackList.Size = new System.Drawing.Size(227, 314);
 			this.trackList.TabIndex = 3;
 			this.trackList.UseCompatibleStateImageBehavior = false;
+			this.trackList.View = System.Windows.Forms.View.Details;
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(13, 268);
+			this.label2.Location = new System.Drawing.Point(12, 389);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(70, 13);
 			this.label2.TabIndex = 4;
@@ -88,37 +92,49 @@
 			// 
 			// totalLenghtBox
 			// 
-			this.totalLenghtBox.Location = new System.Drawing.Point(13, 285);
+			this.totalLenghtBox.Location = new System.Drawing.Point(12, 406);
 			this.totalLenghtBox.Name = "totalLenghtBox";
 			this.totalLenghtBox.ReadOnly = true;
-			this.totalLenghtBox.Size = new System.Drawing.Size(317, 22);
+			this.totalLenghtBox.Size = new System.Drawing.Size(228, 22);
 			this.totalLenghtBox.TabIndex = 5;
 			this.totalLenghtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.totalLenghtBox.WordWrap = false;
 			// 
 			// addButton
 			// 
-			this.addButton.Location = new System.Drawing.Point(13, 314);
+			this.addButton.Location = new System.Drawing.Point(12, 435);
 			this.addButton.Name = "addButton";
-			this.addButton.Size = new System.Drawing.Size(151, 23);
+			this.addButton.Size = new System.Drawing.Size(102, 23);
 			this.addButton.TabIndex = 6;
 			this.addButton.Text = "Add Current CD";
 			this.addButton.UseVisualStyleBackColor = true;
+			this.addButton.Click += new System.EventHandler(this.addButton_Click);
 			// 
 			// resetButton
 			// 
-			this.resetButton.Location = new System.Drawing.Point(255, 313);
+			this.resetButton.Location = new System.Drawing.Point(175, 434);
 			this.resetButton.Name = "resetButton";
-			this.resetButton.Size = new System.Drawing.Size(75, 23);
+			this.resetButton.Size = new System.Drawing.Size(65, 23);
 			this.resetButton.TabIndex = 7;
 			this.resetButton.Text = "Reset";
 			this.resetButton.UseVisualStyleBackColor = true;
+			this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+			// 
+			// trackNumber
+			// 
+			this.trackNumber.Text = "#";
+			// 
+			// length
+			// 
+			this.length.Text = "Length";
+			this.length.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.length.Width = 143;
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(343, 349);
+			this.ClientSize = new System.Drawing.Size(254, 471);
 			this.Controls.Add(this.resetButton);
 			this.Controls.Add(this.addButton);
 			this.Controls.Add(this.totalLenghtBox);
@@ -133,6 +149,7 @@
 			this.Name = "Form1";
 			this.ShowIcon = false;
 			this.Text = "Audio CD Size Calculator";
+			this.Load += new System.EventHandler(this.Form1_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -148,6 +165,8 @@
 		private System.Windows.Forms.TextBox totalLenghtBox;
 		private System.Windows.Forms.Button addButton;
 		private System.Windows.Forms.Button resetButton;
+		private System.Windows.Forms.ColumnHeader trackNumber;
+		private System.Windows.Forms.ColumnHeader length;
 	}
 }
 
